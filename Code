@@ -1,0 +1,202 @@
+PImage Anim[][];
+int gametime = 1;
+int animtime = 0;
+int time = 0;
+int stateno = 20;
+String command = "";
+int prevstateno = 0;
+int prevstateno1 = 0;
+int prevstateno2 = 0;
+
+float x = 200;
+float y = 100;
+float w = 45;
+float h = 62;
+float vx = 0;
+float vy = 0;
+float g = 0.5;
+boolean onGround = false;
+
+    int animno=0;
+    int AnimNum=0;
+    String AnimLoad = "";
+    int AnimStart=0;
+    int animend = 0;
+
+float hp = 50;
+float hpMax = 100; 
+float hpBarX = 10;
+float hpBarY = 10;
+float hpBarW = 300;
+float hpBarH = 20;
+
+
+void setup() {
+    Anim = new PImage[999][99];
+    size(800, 600); 
+Anim[0][0] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-0.png");
+Anim[0][1] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-1.png");
+Anim[0][2] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-2.png");
+Anim[0][3] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-3.png");
+Anim[0][4] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-4.png");
+Anim[0][5] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-5.png");
+Anim[0][6] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-6.png");
+Anim[0][7] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-7.png");
+Anim[0][8] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-8.png");
+Anim[0][9] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-9.png");
+Anim[0][10] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-10.png");
+Anim[0][11] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_0-11.png");
+Anim[20][0] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-20.png");
+Anim[20][1] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-21.png");
+Anim[20][2] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-22.png");
+Anim[20][3] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-23.png");
+Anim[20][4] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-24.png");
+Anim[20][5] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-25.png");
+Anim[20][6] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-26.png");
+Anim[20][7] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-27.png");
+Anim[20][8] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-28.png");
+Anim[20][9] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-29.png");
+Anim[40][0] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-5.png");
+Anim[40][1] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-6.png");
+Anim[40][2] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-7.png");
+Anim[50][0] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-40.png");
+Anim[50][1] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-41.png");
+Anim[50][2] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-42.png");
+Anim[50][3] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-43.png");
+Anim[50][4] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-44.png");
+Anim[50][5] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-45.png");
+Anim[50][6] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-46.png");
+Anim[50][7] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-47.png");
+Anim[50][8] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-48.png");
+Anim[50][9] = loadImage("https://raw.githubusercontent.com/Mmohet/Sprite-SFF/main/0_12-47.png");
+}
+
+void draw() {
+    gametime ++;
+    time ++;
+    animend=0;
+    
+    if(gametime%2==0){prevstateno1=stateno;}
+    if(gametime%2==1){prevstateno2=stateno;}
+    if(prevstateno1!=prevstateno2){
+        time = 0;
+        animtime = 0;
+        animno = stateno;
+        if(gametime%2==0){prevstateno=prevstateno2;}
+        if(gametime%2==1){prevstateno=prevstateno1;}
+        prevstateno1=stateno;prevstateno2=stateno;
+    }
+        
+    if(animtime>AnimNum){animtime=0;}
+    if(animtime==AnimNum){animend=1;}
+    
+    println(stateno+" "+animtime+" "+gametime);
+    
+
+
+  background(255);
+  fill(0);
+    image(Anim[animno][int(AnimStart+animtime%AnimNum)],x, y, Anim[animno][int(AnimStart+animtime%AnimNum)].width, Anim[animno][int(AnimStart+animtime%AnimNum)].height);
+    update();
+    drawHpBar();
+    
+    if(stateno==0){
+        if(gametime%5==0){animtime++;}
+        AnimNum = 12;
+    }
+    if(stateno==20){
+        if(gametime%6==0){animtime++;}
+        AnimNum = 10;
+    }
+    if(stateno==40){
+        if(time==1||time==2||time==4){animtime++;}
+        AnimNum = 3;
+        if(animend==1){stateno=50;}
+    }
+    if(stateno==50){
+        if(gametime%3==0){animtime++;}
+        if(animtime==8){animtime=6;}
+        AnimNum = 9;
+    }
+}
+
+void update() {
+  x += vx;
+  y += vy;
+  
+  if (x < 0) {
+    x = 0;
+    vx = -vx;
+  }
+  
+  if (x + w > width) {
+    x = width - w;
+    vx = -vx;
+  }
+  
+  if (y < 0) { 
+    y = 0;
+    vy = -vy;
+  }
+  
+  if (y + h > height) {
+    y = height - h;
+    vy = 0;
+    onGround = true;
+  }
+  
+  vy += g;
+  
+}
+
+void keyPressed() {
+  if (key == 'a') {
+    vx = -5;
+    command = "back";
+  }
+  
+  if (key == 'd') {
+    vx = 5;
+    command = "fwd";
+    stateno = 20;
+  }
+  
+  if (key == 'w' && onGround) {
+    vy = -15;
+    onGround = false;
+    command = "up";
+    stateno = 40;
+  }
+  
+}
+
+void keyReleased() {
+  if (key == 'a' || key == 'd') {
+    vx = 0;
+    stateno = 0;
+  }
+}
+
+
+void drawHpBar() {
+   fill(255,0,0);
+   float ratio = hp / hpMax;
+   float barWidth = ratio * hpBarW;
+   rect(hpBarX, hpBarY, barWidth, hpBarH);
+   noFill();
+   stroke(0);
+   rect(hpBarX, hpBarY, hpBarW, hpBarH);
+   noStroke();
+}
+
+int animset(int inputstateno, int outputanimno){
+    if(inputstateno==stateno){
+        return outputanimno;
+    } else {
+        return animno;
+    }
+}
+
+int changestate(int changestateno){
+    return changestateno;
+}
